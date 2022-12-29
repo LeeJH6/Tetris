@@ -17,15 +17,15 @@
 다중 재생을 구현 open과 play는 한 세트이기에 같은 이름으로 둘 다 존재해야만 정상 작동
 MCI_OPEN_PARMS는 MCI_OPEN 커맨드를 위한 정보가 담긴 구조체이다. */
 MCI_OPEN_PARMS openBgm;	// main bgm 구조체
-MCI_PLAY_PARMS playBgm;
+MCI_PLAY_PARMS playBgm; //bgm 구조체
 MCI_OPEN_PARMS opencombosound;	// 콤보 사운드 구조체
-MCI_PLAY_PARMS playcombosound;
-MCI_OPEN_PARMS openlevelupsound;	// 레벨업 사운드 구조체
-MCI_PLAY_PARMS playlevelupsound;
+MCI_PLAY_PARMS playcombosound; //bgm 구조체
+MCI_OPEN_PARMS openlevelupsound;// 레벨업 사운드 구조체
+MCI_PLAY_PARMS playlevelupsound; //bgm 구조체
 
-int dwID;	      // 음악 파일 불러오는 값
-int dwID1;      // 음악 파일 불러오는 값
-int dwID2;      // 음악 파일 불러오는 값
+int dwID;	// 음악 파일 호출 값
+int dwID1;      // 음악 파일 호출 값
+int dwID2;      // 음악 파일 호출 값
 
 #define LEFT 75 //좌로 이동    //키보드값들 
 #define RIGHT 77 //우로 이동 
@@ -927,7 +927,7 @@ void playsoundlevelup()
 {
 	openlevelupsound.lpstrElementName = TEXT(levelup_sound); //파일 오픈
 	openlevelupsound.lpstrDeviceType = TEXT("mpegvideo"); //mp3 형식
-	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD_PTR)&openlevelupsound);
+	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD_PTR)&openlevelupsound); //DWORD_PTR 잘 살펴볼 것
 	dwID1 = openlevelupsound.wDeviceID;
 	mciSendCommand(dwID1, MCI_SEEK, MCI_SEEK_TO_START, (DWORD_PTR)NULL); //SEEK를 이용해 재생 위치를 처음으로 초기화
 	mciSendCommand(dwID1, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&openlevelupsound); //사운드를 한 번만 재생
@@ -938,7 +938,7 @@ void playsoundcombo()
 {
 	opencombosound.lpstrElementName = TEXT(combo_sound); //파일 오픈
 	opencombosound.lpstrDeviceType = TEXT("mpegvideo"); //mp3 형식
-	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD_PTR)&opencombosound);
+	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD_PTR)&opencombosound); //DWORD_PTR 잘 살펴볼 것
 	dwID2 = opencombosound.wDeviceID;
 	mciSendCommand(dwID2, MCI_SEEK, MCI_SEEK_TO_START, (DWORD_PTR)NULL); //SEEK를 이용해 재생 위치를 처음으로 초기화
 	mciSendCommand(dwID2, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&opencombosound); //사운드를 한 번만 재생
